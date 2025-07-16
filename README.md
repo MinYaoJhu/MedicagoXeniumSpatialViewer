@@ -84,7 +84,7 @@ Load your `.rds` Seurat object and:
 
 If you use `XeniumSpatialViewer` in your research, please cite:
 
-> Min-Yao, _XeniumSpatialViewer: Interactive Spatial Transcriptomics_, 2025. GitHub repository: [github.com/yourname/XeniumSpatialViewer](https://github.com/yourname/XeniumSpatialViewer)
+> Min-Yao, _XeniumSpatialViewer: Interactive Spatial Transcriptomics_, 2025. GitHub repository: [github.com/MinYaoJhu/XeniumSpatialViewer](https://github.com/yourname/XeniumSpatialViewer)
 
 ## 📧 Contact
 

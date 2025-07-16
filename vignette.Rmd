@@ -1,0 +1,63 @@
+---
+title: "XeniumSpatialViewer Tutorial"
+author: "Min-Yao"
+date: "2025-07-16"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: readable
+---
+
+# 🧬 XeniumSpatialViewer
+
+This vignette demonstrates how to use the `XeniumSpatialViewer` Shiny app to visualize 10x Xenium spatial transcriptomics data interactively.
+
+## 🔧 Requirements
+
+Install dependencies:
+
+```r
+install.packages(c("shiny", "shinyWidgets", "ggplot2", "plotly", "DT", "patchwork"))
+BiocManager::install("Seurat")
+```
+
+## 🚀 Launch the App
+
+Clone the repo and launch the app:
+
+```r
+shiny::runApp("XeniumSpatialViewer")
+```
+
+## 📁 Upload Data
+
+- Prepare a `.rds` file containing a Seurat object created from 10x Xenium data.
+- This file must contain UMAP embeddings, metadata, and optionally spatial image data.
+
+## 🧭 Explore UMAP
+
+- Select a `Color By` option such as cluster, organ, or DPI.
+- View interactive UMAP colored by the selected metadata.
+
+## 🧬 Gene Expression
+
+- Enter a gene name in the "Gene Expression Viewer" box.
+- See the gene expression on both UMAP and spatial maps.
+
+## 🖼️ Spatial View
+
+- Overlay expression or metadata grouping directly on tissue image coordinates.
+
+## 💾 Export
+
+- Plots can be right-clicked and saved as images.
+- Table exports and interactive filters coming soon.
+
+## 📧 Contact
+
+Questions? Contact [myj23@cam.ac.uk](mailto:myj23@cam.ac.uk)
+
+---
+
+Happy Spatial Mapping 🧠
