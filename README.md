@@ -1,13 +1,14 @@
-# 🧬 XeniumSpatialViewer
+# 🧬 XeniumSpatialViewer (Shiny App)
 
-**Interactive R Shiny App for Exploring Spatial Transcriptomics from 10x Xenium**
+**Interactive R Shiny App for Exploring Spatial Transcriptomics from Xenium in situ**
 
 `XeniumSpatialViewer` enables dynamic, web-based visualization of spatial gene expression across tissue sections using processed Seurat `.rds` objects from Xenium datasets. It complements your analysis workflow by providing an accessible interface to explore clusters, spatial localization, and gene expression interactively.
 
 ## 🚀 Features
 
 - 🔍 **Load Preprocessed Seurat Objects**  
-  Upload `.rds` objects from your spatial workflow.
+  Load preprocessed Xenium `Seurat` objects (`.rds`)
+  QC visualization (UMI & gene count per cell)
 
 - 🧭 **UMAP & Cluster Explorer**  
   View UMAPs with cluster IDs, organ types, developmental stages, etc.
@@ -18,8 +19,8 @@
 - 🧬 **Gene Expression Viewer**  
   Input a gene and visualize its expression on UMAP and tissue coordinates.
 
-- 🧮 **Metadata Filtering**  
-  Filter samples by ecotype, organ, or developmental stage (DPI).
+- 🧮 **Marker gene identification**  
+  Marker gene identification and export.
 
 - 💾 **Export & Snapshot**  
   Download plots as high-res PNG or PDF. Save gene expression tables.
@@ -90,6 +91,8 @@ If you use `XeniumSpatialViewer` in your research, please cite:
 
 Maintainer: **Min-Yao**  
 Email: [myj23@cam.ac.uk](mailto:myj23@cam.ac.uk)
+
+📅 Last updated: `r format(Sys.Date(), '%Y-%m-%d')`
 
 ---
 

@@ -1,4 +1,3 @@
--- app.R
 library(shiny)
 library(shinyWidgets)
 library(Seurat)
@@ -7,81 +6,109 @@ library(plotly)
 library(DT)
 library(patchwork)
 
-source("modules/ui_main.R")
-source("modules/server_main.R")
-
-shinyApp(
-  ui = ui_main(),
-  server = server_main
-)
-
--- modules/ui_main.R
-ui_main <- function() {
-  fluidPage(
-    titlePanel("🧬 Xenium Spatial Viewer"),
-    sidebarLayout(
-      sidebarPanel(
-        fileInput("rds_file", "Upload Seurat .rds Object", accept = ".rds"),
-        pickerInput("color_by", "Color By:", choices = NULL),
-        textInput("gene", "Gene Expression Viewer", value = ""),
-        actionButton("refresh", "🔄 Refresh")
-      ),
-      mainPanel(
-        tabsetPanel(
-          tabPanel("UMAP", plotlyOutput("umap_plot")),
-          tabPanel("Spatial", plotOutput("spatial_plot")),
-          tabPanel("Gene Expression", plotlyOutput("gene_plot"))
-        )
+# UI ----
+ui <- fluidPage(
+  titlePanel("Xenium Spatial Transcriptome Explorer"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      fileInput("rds_file", "Upload Seurat RDS file", accept = ".rds"),
+      hr(),
+      selectInput("gene_input", "Choose gene", choices = NULL),
+      actionButton("run_qc", "Show QC"),
+      actionButton("run_gene", "Plot Gene Spatial"),
+      hr(),
+      actionButton("run_clustering", "Run Clustering"),
+      downloadButton("download_markers", "Download Marker Genes")
+    ),
+    
+    mainPanel(
+      tabsetPanel(
+        tabPanel("Summary", verbatimTextOutput("seurat_summary")),
+        tabPanel("QC", plotOutput("qc_plot")),
+        tabPanel("Gene Overlay", plotOutput("gene_plot")),
+        tabPanel("UMAP", plotOutput("umap_plot")),
+        tabPanel("Spatial Clusters", plotOutput("spatial_plot")),
+        tabPanel("Markers", dataTableOutput("marker_table"))
       )
     )
   )
-}
+)
 
--- modules/server_main.R
-source("modules/module_umap.R")
-source("modules/module_spatial.R")
-source("modules/module_gene_expression.R")
-
-server_main <- function(input, output, session) {
-  rv <- reactiveValues(seurat = NULL)
-
+# SERVER ----
+server <- function(input, output, session) {
+  options(shiny.maxRequestSize = 1000 * 1024^2)  # allow large files
+  
+  seurat_obj <- reactiveVal(NULL)
+  
   observeEvent(input$rds_file, {
     req(input$rds_file)
-    rv$seurat <- readRDS(input$rds_file$datapath)
-    updatePickerInput(session, "color_by", choices = c("seurat_clusters", colnames(rv$seurat@meta.data)))
+    obj <- readRDS(input$rds_file$datapath)
+    seurat_obj(obj)
+    
+    updateSelectInput(session, "gene_input", choices = rownames(obj))
   })
-
-  module_umap_server("umap", rv)
-  module_spatial_server("spatial", rv)
-  module_gene_expression_server("gene", rv, reactive(input$gene))
+  
+  output$seurat_summary <- renderPrint({
+    req(seurat_obj())
+    seurat_obj()
+  })
+  
+  output$qc_plot <- renderPlot({
+    req(seurat_obj())
+    VlnPlot(seurat_obj(), features = c("nFeature_Xenium", "nCount_Xenium"), pt.size = 0)
+  })
+  
+  output$gene_plot <- renderPlot({
+    req(seurat_obj(), input$gene_input)
+    ImageFeaturePlot(
+      seurat_obj(),
+      features = input$gene_input,
+      max.cutoff = "q90",
+      size = 2,
+      cols = c("white", "red")
+    )
+  })
+  
+  observeEvent(input$run_clustering, {
+    obj <- seurat_obj()
+    obj <- SCTransform(obj, assay = "Xenium")
+    obj <- RunPCA(obj, npcs = 30)
+    obj <- RunUMAP(obj, dims = 1:30)
+    obj <- FindNeighbors(obj, dims = 1:30)
+    obj <- FindClusters(obj, resolution = 0.3)
+    seurat_obj(obj)
+  })
+  
+  output$umap_plot <- renderPlot({
+    req(seurat_obj())
+    DimPlot(seurat_obj(), group.by = "seurat_clusters", label = TRUE)
+  })
+  
+  output$spatial_plot <- renderPlot({
+    req(seurat_obj())
+    ImageDimPlot(seurat_obj(), group.by = "seurat_clusters", axes = TRUE, coord.fixed = TRUE)
+  })
+  
+  markers <- reactiveVal(NULL)
+  
+  observeEvent(input$run_clustering, {
+    req(seurat_obj())
+    markers(FindAllMarkers(seurat_obj()))
+  })
+  
+  output$marker_table <- renderDataTable({
+    req(markers())
+    datatable(markers())
+  })
+  
+  output$download_markers <- downloadHandler(
+    filename = function() { "AllMarkers.csv" },
+    content = function(file) {
+      write.csv(markers(), file, row.names = FALSE)
+    }
+  )
 }
 
--- modules/module_umap.R
-module_umap_server <- function(id, rv) {
-  moduleServer(id, function(input, output, session) {
-    output$umap_plot <- renderPlotly({
-      req(rv$seurat)
-      DimPlot(rv$seurat, reduction = "umap", group.by = input$color_by) + theme_minimal()
-    })
-  })
-}
-
--- modules/module_spatial.R
-module_spatial_server <- function(id, rv) {
-  moduleServer(id, function(input, output, session) {
-    output$spatial_plot <- renderPlot({
-      req(rv$seurat)
-      SpatialDimPlot(rv$seurat, group.by = input$color_by, stroke = 0.2)
-    })
-  })
-}
-
--- modules/module_gene_expression.R
-module_gene_expression_server <- function(id, rv, gene_reactive) {
-  moduleServer(id, function(input, output, session) {
-    output$gene_plot <- renderPlotly({
-      req(rv$seurat, gene_reactive())
-      FeaturePlot(rv$seurat, features = gene_reactive()) + theme_minimal()
-    })
-  })
-}
+# RUN APP ----
+shinyApp(ui = ui, server = server)
