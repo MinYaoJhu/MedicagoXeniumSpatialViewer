@@ -1,0 +1,14 @@
+# RStudio / R session files
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# Rendered documents
+*.html
+*_files/
+
+# Deployment and OS files
+rsconnect/
+.DS_Store
+Thumbs.db
