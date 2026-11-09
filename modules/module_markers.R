@@ -32,7 +32,9 @@ markers_server <- function(id, seurat_obj) {
 
     output$marker_table <- renderDT({
       req(markers())
-      datatable(markers(), filter = "top", options = list(pageLength = 15))
+      num_cols <- c("p_val", "avg_log2FC", "pct.1", "pct.2", "p_val_adj")
+      datatable(markers(), rownames = FALSE, filter = "top", options = list(pageLength = 15)) |>
+        formatSignif(num_cols, digits = 3)
     })
 
     output$download_markers <- downloadHandler(

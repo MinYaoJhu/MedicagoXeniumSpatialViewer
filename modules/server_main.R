@@ -1,10 +1,11 @@
 # modules/server_main.R
+DEMO_FILE <- "data/demo_xenium_breast.rds"
+
 server_main <- function(input, output, session) {
   seurat_obj <- reactiveVal(NULL)
 
-  observeEvent(input$rds_file, {
-    req(input$rds_file)
-    obj <- withProgress(message = "Reading Seurat object...", readRDS(input$rds_file$datapath))
+  load_object <- function(path, label) {
+    obj <- withProgress(message = paste("Reading", label, "..."), readRDS(path))
     if (!inherits(obj, "Seurat")) {
       showNotification("The uploaded file is not a Seurat object.", type = "error")
       return()
@@ -13,6 +14,17 @@ server_main <- function(input, output, session) {
 
     # Server-side selectize keeps the UI responsive for large gene panels
     updateSelectizeInput(session, "gene_input", choices = rownames(obj), server = TRUE)
+    showNotification(sprintf("Loaded %s: %d cells, %d genes", label, ncol(obj), nrow(obj)))
+  }
+
+  observeEvent(input$rds_file, {
+    req(input$rds_file)
+    load_object(input$rds_file$datapath, input$rds_file$name)
+  })
+
+  observeEvent(input$load_demo, {
+    req(file.exists(DEMO_FILE))
+    load_object(DEMO_FILE, "demo dataset")
   })
 
   # Call modules

@@ -2,7 +2,7 @@
 spatial_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    plotOutput(ns("spatial_plot"))
+    plotOutput(ns("spatial_plot"), height = "650px")
   )
 }
 
@@ -22,7 +22,8 @@ spatial_server <- function(id, seurat_obj) {
         group.by = "seurat_clusters",
         axes = TRUE,
         coord.fixed = TRUE,
-        size = 3
+        size = 1.2,
+        dark.background = TRUE
       )
     })
   })

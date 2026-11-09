@@ -2,7 +2,7 @@
 gene_expression_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    plotOutput(ns("gene_plot"))
+    plotOutput(ns("gene_plot"), height = "650px")
   )
 }
 
@@ -18,7 +18,7 @@ gene_expression_server <- function(id, seurat_obj, gene_input) {
         seurat_obj(),
         features = gene_input(),
         max.cutoff = "q90",
-        size = 2,
+        size = 1.2,
         cols = c("white", "red")
       )
     })
