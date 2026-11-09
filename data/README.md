@@ -24,24 +24,25 @@ transcript locations are not included.
 
 ## Source
 
-- **Dataset:** FFPE Human Breast using the Entire Sample Area, Replicate 1
-  (`Xenium_FFPE_Human_Breast_Cancer_Rep1`), Xenium Onboard Analysis output v1.0.1,
-  10x Genomics.
-  Dataset page: <https://www.10xgenomics.com/datasets/ffpe-human-breast-using-the-entire-sample-area-1-standard>
+- **Dataset:** Xenium In Situ Preview Data, FFPE human breast cancer, *In Situ Sample 1, Replicate 1*
+  (`Xenium_FFPE_Human_Breast_Cancer_Rep1`), 10x Genomics. Generated on a prototype
+  Xenium instrument and reanalyzed with Xenium Onboard Analysis v1.0.1. These are the
+  data described in Janesick et al. (2023).
+  Dataset page: <https://www.10xgenomics.com/products/xenium-in-situ/preview-dataset-human-breast>
 - **License:** Creative Commons Attribution 4.0 International (CC BY 4.0), as stated on the dataset page.
 
 ## How to cite
 
 Following the [10x Genomics citation guidelines](https://www.10xgenomics.com/support/software/cell-ranger/latest/miscellaneous/cr-citations):
 
-- **Dataset:** FFPE Human Breast using the Entire Sample Area, Xenium In Situ Dataset by Xenium Onboard Analysis v1.0.1, 10x Genomics, (RELEASE_DATE).
+- **Dataset:** High resolution mapping of the breast cancer tumor microenvironment using integrated single cell, spatial and in situ analysis of FFPE tissue: In Situ Sample 1, Replicate 1, Xenium In Situ Preview Dataset by Xenium Onboard Analysis v1.0.1, 10x Genomics, (accessed 2026, November 9).
 - **Article:** Janesick, A. et al. (2023). High resolution mapping of the tumor microenvironment using integrated single-cell, spatial and in situ analysis. *Nature Communications* 14: 8353, [doi:10.1038/s41467-023-43458-x](https://doi.org/10.1038/s41467-023-43458-x)
 
 ## Download record
 
 Files may be updated by 10x Genomics over time, so the exact files used are recorded here.
 
-- **Downloaded:** 2026-11-09 (19:42 UTC)
+- **Downloaded:** 2026-11-09 (19:42 UTC). The dataset page shows no release date, so the access date is used in the citation.
 - **Base URL:** `https://cf.10xgenomics.com/samples/xenium/1.0.1/Xenium_FFPE_Human_Breast_Cancer_Rep1/`
 
 | File | Size (bytes) | MD5 |

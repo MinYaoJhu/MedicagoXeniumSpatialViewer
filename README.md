@@ -104,7 +104,7 @@ shiny::runApp("path/to/MedicagoXeniumSpatialViewer")
 
 Click **Load demo dataset** in the sidebar, then go through the tabs from left to right. Clustering the 12,606 demo cells takes about 20 seconds.
 
-> **About the demo data:** this is a small region of the public 10x Genomics *FFPE Human Breast Cancer, Replicate 1* Xenium dataset (CC BY 4.0), first described in [Janesick et al., *Nature Communications* 2023](https://doi.org/10.1038/s41467-023-43458-x). It is included only to demonstrate the app and will be replaced by our *Medicago truncatula* root nodule Xenium dataset once the associated paper is published. The download date, file checksums and build script are documented in [`data/README.md`](data/README.md).
+> **About the demo data:** this is a small region of the public [10x Genomics Xenium preview dataset](https://www.10xgenomics.com/products/xenium-in-situ/preview-dataset-human-breast) of FFPE human breast cancer (*Sample 1, Replicate 1*; CC BY 4.0), first described in [Janesick et al., *Nature Communications* 2023](https://doi.org/10.1038/s41467-023-43458-x). It is included only to demonstrate the app and will be replaced by our *Medicago truncatula* root nodule Xenium dataset once the associated paper is published. The download date, file checksums and build script are documented in [`data/README.md`](data/README.md).
 
 ### 4️⃣ Use your own data
 
@@ -157,7 +157,7 @@ The app was tested with the versions below (Linux, November 2026). If something 
 
 **Demo data** (CC BY 4.0, cited following the [10x Genomics citation guidelines](https://www.10xgenomics.com/support/software/cell-ranger/latest/miscellaneous/cr-citations)):
 
-- FFPE Human Breast using the Entire Sample Area, Xenium In Situ Dataset by Xenium Onboard Analysis v1.0.1, 10x Genomics, (RELEASE_DATE).
+- High resolution mapping of the breast cancer tumor microenvironment using integrated single cell, spatial and in situ analysis of FFPE tissue: In Situ Sample 1, Replicate 1, Xenium In Situ Preview Dataset by Xenium Onboard Analysis v1.0.1, 10x Genomics, (accessed 2026, November 9).
 - Janesick, A. et al. (2023). High resolution mapping of the tumor microenvironment using integrated single-cell, spatial and in situ analysis. *Nature Communications* 14: 8353, [doi:10.1038/s41467-023-43458-x](https://doi.org/10.1038/s41467-023-43458-x)
 
 **This app:**
