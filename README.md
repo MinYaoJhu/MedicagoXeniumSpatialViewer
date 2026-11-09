@@ -19,6 +19,17 @@
 | **Gene Expression** | Expression of any selected gene plotted on the tissue |
 | **Marker Genes** | Marker genes for every cluster (`FindAllMarkers`), in a filterable table with CSV export |
 
+## Workflow
+
+<p align="center">
+  <img src="assets/workflow.svg" width="100%" alt="Workflow: Xenium output is loaded with Seurat::LoadXenium(), saved as an .rds Seurat object, uploaded to the Shiny app for QC, clustering, spatial and gene views, and exported as plots and a marker gene table"/>
+</p>
+
+1. **Load** the Xenium output folder (transcripts, cell boundaries, cell-feature matrix) into Seurat with `LoadXenium()`.
+2. **Save** the Seurat object as an `.rds` file.
+3. **Explore** it in the app: QC, clustering and UMAP, clusters on the tissue, gene expression and marker genes.
+4. **Export** plots and the marker gene table (`.csv`).
+
 ## 📂 Repository Structure
 
 ```
@@ -34,7 +45,9 @@ MedicagoXeniumSpatialViewer/
 │   └── module_markers.R
 ├── assets/
 │   ├── logo.svg                   # Hex logo
-│   └── make_logo.py               # Reproducible logo generator
+│   ├── workflow.svg               # Workflow figure
+│   ├── make_logo.py               # Reproducible figure generators
+│   └── make_workflow.py
 ├── vignette.Rmd                   # Step-by-step tutorial
 ├── CITATION.cff
 └── LICENSE
