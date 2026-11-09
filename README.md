@@ -1,4 +1,4 @@
-# 🧬 Medicago Xenium Spatial Viewer
+# Medicago Xenium Spatial Viewer <img src="assets/logo.svg" align="right" width="150" alt="MedicagoXeniumSpatialViewer logo"/>
 
 **An interactive R Shiny app for exploring 10x Genomics Xenium *in situ* spatial transcriptomics data**
 
@@ -32,6 +32,9 @@ MedicagoXeniumSpatialViewer/
 │   ├── module_spatial.R
 │   ├── module_gene_expression.R
 │   └── module_markers.R
+├── assets/
+│   ├── logo.svg                   # Hex logo
+│   └── make_logo.py               # Reproducible logo generator
 ├── vignette.Rmd                   # Step-by-step tutorial
 ├── CITATION.cff
 └── LICENSE
