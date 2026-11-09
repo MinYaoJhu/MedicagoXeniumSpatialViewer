@@ -6,6 +6,7 @@
 ![Seurat](https://img.shields.io/badge/Seurat-v5-blue)
 ![Shiny](https://img.shields.io/badge/Shiny-app-blue?logo=rstudioide&logoColor=white)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![tests](https://github.com/MinYaoJhu/MedicagoXeniumSpatialViewer/actions/workflows/tests.yml/badge.svg)](https://github.com/MinYaoJhu/MedicagoXeniumSpatialViewer/actions/workflows/tests.yml)
 
 `MedicagoXeniumSpatialViewer` lets you upload a Xenium Seurat object (`.rds`) and explore it in the browser: check cell quality, cluster cells, view clusters and gene expression on the tissue, and export marker genes. No R coding is needed after launch. It was built to explore *Medicago truncatula* root nodule Xenium data, and it works with any Xenium dataset loaded into Seurat.
 
@@ -70,6 +71,8 @@ MedicagoXeniumSpatialViewer/
 │   └── make_workflow.py
 ├── docs/
 │   └── sessionInfo.txt            # Full R session used for testing
+├── tests/                         # testthat + shinytest2 test suite
+├── .github/workflows/tests.yml    # Runs the tests on GitHub for every push
 ├── environment.yml                # Tested conda environment
 ├── vignette.Rmd                   # Step-by-step tutorial
 ├── CITATION.cff
@@ -121,6 +124,14 @@ saveRDS(xenium_obj, "xenium_obj.rds")
 
 Uploads up to 5 GB are supported.
 
+## ✅ Tests
+
+The test suite checks the demo data, each tab's logic and a full run of the app in a headless browser. It runs automatically on GitHub for every change (see the **tests** badge above). To run it locally from the repository root:
+
+```bash
+Rscript tests/testthat.R
+```
+
 ## 🧪 Tested Versions
 
 The app was tested with the versions below (Linux, November 2026). If something does not work, a package version difference is a good first thing to check. The full R session is in [`docs/sessionInfo.txt`](docs/sessionInfo.txt).
@@ -145,7 +156,7 @@ The app was tested with the versions below (Linux, November 2026). If something 
 - [ ] Gene expression on UMAP alongside the tissue view
 - [ ] PNG/PDF export of all plots
 - [x] Tested conda environment (`environment.yml`) and recorded package versions
-- [ ] Automated tests and continuous integration (GitHub Actions)
+- [x] Automated tests and continuous integration (GitHub Actions)
 
 ## Related Repositories
 
