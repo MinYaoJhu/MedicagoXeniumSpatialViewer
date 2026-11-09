@@ -1,16 +1,14 @@
 # app.R
 library(shiny)
 library(Seurat)
-library(future)
 library(ggplot2)
+library(DT)
 
-# Allow up to 500 MB upload
-options(shiny.maxRequestSize = 1024 * 1024 * 500)
+# Xenium Seurat objects are often several GB; allow uploads up to 5 GB
+options(shiny.maxRequestSize = 5 * 1024^3)
 
-# Set multicore processing
-plan("multisession", workers = 4)
-
-# Source UI and server modules
+# Source modules, then the main UI and server
+for (f in list.files("modules", pattern = "^module_.*\\.R$", full.names = TRUE)) source(f)
 source("modules/ui_main.R")
 source("modules/server_main.R")
 
