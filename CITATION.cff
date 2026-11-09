@@ -2,10 +2,19 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 title: "MedicagoXeniumSpatialViewer: an interactive Shiny app for Xenium spatial transcriptomics"
 type: software
+version: 1.0.0
+date-released: "2026-11-09"
+abstract: >-
+  An R Shiny app for exploring 10x Genomics Xenium in situ spatial
+  transcriptomics data stored as Seurat objects. Users can check cell quality,
+  cluster cells (SCTransform, PCA, UMAP), map clusters and gene expression onto
+  the tissue section, and export marker genes, without writing R code. Includes
+  a public demo dataset, a test suite and a pinned conda environment.
 authors:
   - family-names: Jhu
     given-names: Min-Yao
     affiliation: Donald Danforth Plant Science Center
+    orcid: "https://orcid.org/0000-0002-8654-0977"
 repository-code: "https://github.com/MinYaoJhu/MedicagoXeniumSpatialViewer"
 license: MIT
 keywords:
@@ -13,4 +22,6 @@ keywords:
   - Xenium
   - Seurat
   - Shiny
+  - single-cell
+  - bioinformatics
   - Medicago truncatula
