@@ -19,6 +19,18 @@
 | **Gene Expression** | Expression of any selected gene plotted on the tissue |
 | **Marker Genes** | Marker genes for every cluster (`FindAllMarkers`), in a filterable table with CSV export |
 
+## 📸 Screenshots
+
+Screenshots use the bundled [demo dataset](data/README.md), a public 10x Genomics human breast cancer sample.
+
+<img src="assets/screenshots/app_overview.png" width="100%" alt="The app showing clusters mapped onto a breast cancer tissue section"/>
+
+| UMAP + clustering | Gene expression (*ERBB2*) on the tissue |
+|---|---|
+| <img src="assets/screenshots/panel_umap.png" alt="UMAP of clustered cells"/> | <img src="assets/screenshots/panel_gene_expression.png" alt="ERBB2 expression on the tissue section"/> |
+| **QC metrics** | **Marker genes** |
+| <img src="assets/screenshots/panel_qc.png" alt="QC violin plots of genes and transcripts per cell"/> | <img src="assets/screenshots/panel_markers.png" alt="Filterable marker gene table"/> |
+
 ## Workflow
 
 <p align="center">
@@ -43,11 +55,22 @@ MedicagoXeniumSpatialViewer/
 │   ├── module_spatial.R
 │   ├── module_gene_expression.R
 │   └── module_markers.R
+├── data/
+│   ├── demo_xenium_breast.rds     # Demo dataset (2 MB)
+│   └── README.md                  # Data source, citation and download record
+├── data-raw/
+│   └── make_demo_data.R           # Builds the demo dataset from public 10x files
+├── scripts/
+│   └── make_screenshots.R         # Regenerates README screenshots (shinytest2)
 ├── assets/
 │   ├── logo.svg                   # Hex logo
 │   ├── workflow.svg               # Workflow figure
+│   ├── screenshots/               # README screenshots (scripts/make_screenshots.R)
 │   ├── make_logo.py               # Reproducible figure generators
 │   └── make_workflow.py
+├── docs/
+│   └── sessionInfo.txt            # Full R session used for testing
+├── environment.yml                # Tested conda environment
 ├── vignette.Rmd                   # Step-by-step tutorial
 ├── CITATION.cff
 └── LICENSE
@@ -57,14 +80,18 @@ MedicagoXeniumSpatialViewer/
 
 ### 1️⃣ Install required packages
 
-```r
-install.packages(c("shiny", "Seurat", "ggplot2", "DT"))
+**Option A – conda/micromamba (exact tested versions):**
+
+```bash
+micromamba create -f environment.yml
+micromamba activate xenium-viewer
 ```
 
-R ≥ 4.3 and Seurat v5 are recommended. SCTransform runs faster with the optional `glmGamPoi` package:
+**Option B – install in your own R:**
 
 ```r
-BiocManager::install("glmGamPoi")
+install.packages(c("shiny", "Seurat", "ggplot2", "DT"))
+BiocManager::install("glmGamPoi")  # optional, makes SCTransform faster
 ```
 
 ### 2️⃣ Launch the app
@@ -73,7 +100,13 @@ BiocManager::install("glmGamPoi")
 shiny::runApp("path/to/MedicagoXeniumSpatialViewer")
 ```
 
-### 3️⃣ Prepare your input
+### 3️⃣ Try it with demo data
+
+Click **Load demo dataset** in the sidebar, then go through the tabs from left to right. Clustering the 12,606 demo cells takes about 20 seconds.
+
+> **About the demo data:** this is a small region of the public 10x Genomics *FFPE Human Breast Cancer, Replicate 1* Xenium dataset (CC BY 4.0), first described in [Janesick et al., *Nature Communications* 2023](https://doi.org/10.1038/s41467-023-43458-x). It is included only to demonstrate the app and will be replaced by our *Medicago truncatula* root nodule Xenium dataset once the associated paper is published. The download date, file checksums and build script are documented in [`data/README.md`](data/README.md).
+
+### 4️⃣ Use your own data
 
 The app expects a Seurat object saved with `saveRDS()` that contains:
 
@@ -88,13 +121,31 @@ saveRDS(xenium_obj, "xenium_obj.rds")
 
 Uploads up to 5 GB are supported.
 
+## 🧪 Tested Versions
+
+The app was tested with the versions below (Linux, November 2026). If something does not work, a package version difference is a good first thing to check. The full R session is in [`docs/sessionInfo.txt`](docs/sessionInfo.txt).
+
+| Package | Version |
+|---|---|
+| R | 4.4.3 |
+| Seurat | 5.5.1 |
+| SeuratObject | 5.4.0 |
+| shiny | 1.14.0 |
+| DT | 0.34.0 |
+| ggplot2 | 4.0.3 |
+| glmGamPoi | 1.18.0 |
+| arrow / hdf5r (demo data script only) | 25.0.1 / 1.3.16 |
+| shinytest2 (screenshot script only) | 0.5.1 |
+
 ## 🗺️ Roadmap
 
-- [ ] Demo dataset (a subset of a public 10x Genomics Xenium dataset) for a 30-second test run
+- [x] Demo dataset (a subset of a public 10x Genomics Xenium dataset) for a 30-second test run
+- [ ] Replace the demo with the *Medicago truncatula* root nodule Xenium dataset after publication
 - [ ] Interactive UMAP (plotly) and "color by" any metadata column
 - [ ] Gene expression on UMAP alongside the tissue view
 - [ ] PNG/PDF export of all plots
-- [ ] Reproducible environment (`renv`) and automated tests
+- [x] Tested conda environment (`environment.yml`) and recorded package versions
+- [ ] Automated tests and continuous integration (GitHub Actions)
 
 ## Related Repositories
 
@@ -103,6 +154,10 @@ Uploads up to 5 GB are supported.
 - [Xenium_data_analysis_training](https://github.com/MinYaoJhu/Xenium_data_analysis_training): a 4-week training course on Xenium data analysis
 
 ## Citation
+
+**Demo data:** Janesick, A., Shelansky, R., et al. High resolution mapping of the tumor microenvironment using integrated single-cell, spatial and in situ analysis. *Nature Communications* 14, 8353 (2023). https://doi.org/10.1038/s41467-023-43458-x. Data from 10x Genomics, licensed under CC BY 4.0.
+
+**This app:**
 
 If you use this app in your research, please cite it with the **"Cite this repository"** button on GitHub (generated from [`CITATION.cff`](CITATION.cff)), or as:
 

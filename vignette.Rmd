@@ -19,6 +19,10 @@ This tutorial walks through exploring a 10x Genomics Xenium dataset with the `Me
 install.packages(c("shiny", "Seurat", "ggplot2", "DT"))
 ```
 
+## ▶️ Quick start with demo data
+
+Launch the app (see below) and click **Load demo dataset** in the sidebar. The demo is a small region of a public 10x Genomics human breast cancer Xenium dataset (12,606 cells, 313 genes); see `data/README.md` for its source. It will be replaced by our *Medicago truncatula* root nodule Xenium dataset once the associated paper is published.
+
 ## 📁 Prepare a Seurat object
 
 Load Xenium output with Seurat and save it as an `.rds` file:
