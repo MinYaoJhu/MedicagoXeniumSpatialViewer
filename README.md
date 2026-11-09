@@ -7,8 +7,9 @@
 ![Shiny](https://img.shields.io/badge/Shiny-app-blue?logo=rstudioide&logoColor=white)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![tests](https://github.com/MinYaoJhu/MedicagoXeniumSpatialViewer/actions/workflows/tests.yml/badge.svg)](https://github.com/MinYaoJhu/MedicagoXeniumSpatialViewer/actions/workflows/tests.yml)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24093378.svg)](https://doi.org/10.5281/zenodo.24093378)
 
-`MedicagoXeniumSpatialViewer` lets you upload a Xenium Seurat object (`.rds`) and explore it in the browser: check cell quality, cluster cells, view clusters and gene expression on the tissue, and export marker genes. No R coding is needed after launch. It was built to explore *Medicago truncatula* root nodule Xenium data, and it works with any Xenium dataset loaded into Seurat.
+`MedicagoXeniumSpatialViewer` lets you upload a Xenium Seurat object (`.rds`) and explore it in the browser: check cell quality, cluster cells, view clusters and gene expression on the tissue, and export marker genes. No R coding is needed after launch. It was built to explore *Medicago truncatula* root nodule Xenium data ([Jhu et al. 2026, bioRxiv](https://doi.org/10.64898/2026.06.23.733685)), and it works with any Xenium dataset loaded into Seurat.
 
 ## Features
 
@@ -175,7 +176,7 @@ The app was tested with the versions below (Linux, November 2026). If something 
 
 If you use this app in your research, please cite it with the **"Cite this repository"** button on GitHub (generated from [`CITATION.cff`](CITATION.cff)), or as:
 
-> Jhu, M.-Y. *MedicagoXeniumSpatialViewer: an interactive Shiny app for Xenium spatial transcriptomics.* GitHub repository, https://github.com/MinYaoJhu/MedicagoXeniumSpatialViewer
+> Jhu, M.-Y. (2026). *MedicagoXeniumSpatialViewer: an interactive Shiny app for Xenium spatial transcriptomics* (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.24093378
 
 ## 📧 Contact
 
