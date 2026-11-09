@@ -1,7 +1,7 @@
 ---
-title: "XeniumSpatialViewer Tutorial"
-author: "Min-Yao"
-date: "2025-07-16"
+title: "MedicagoXeniumSpatialViewer Tutorial"
+author: "Min-Yao Jhu"
+date: "2026-11-09"
 output:
   html_document:
     toc: true
@@ -9,55 +9,57 @@ output:
     theme: readable
 ---
 
-# 🧬 XeniumSpatialViewer
+# 🧬 MedicagoXeniumSpatialViewer
 
-This vignette demonstrates how to use the `XeniumSpatialViewer` Shiny app to visualize 10x Xenium spatial transcriptomics data interactively.
+This tutorial walks through exploring a 10x Genomics Xenium dataset with the `MedicagoXeniumSpatialViewer` Shiny app.
 
 ## 🔧 Requirements
 
-Install dependencies:
-
 ```r
-install.packages(c("shiny", "shinyWidgets", "ggplot2", "plotly", "DT", "patchwork"))
-BiocManager::install("Seurat")
+install.packages(c("shiny", "Seurat", "ggplot2", "DT"))
 ```
 
-## 🚀 Launch the App
+## 📁 Prepare a Seurat object
 
-Clone the repo and launch the app:
+Load Xenium output with Seurat and save it as an `.rds` file:
 
 ```r
-shiny::runApp("XeniumSpatialViewer")
+library(Seurat)
+xenium_obj <- LoadXenium("path/to/xenium_output_folder", fov = "fov")
+xenium_obj <- subset(xenium_obj, subset = nCount_Xenium > 0)
+saveRDS(xenium_obj, "xenium_obj.rds")
 ```
 
-## 📁 Upload Data
+The object needs a spatial field of view (FOV) for the tissue plots. UMAP and clusters are optional; the app can compute them.
 
-- Prepare a `.rds` file containing a Seurat object created from 10x Xenium data.
-- This file must contain UMAP embeddings, metadata, and optionally spatial image data.
+## 🚀 Launch the app
 
-## 🧭 Explore UMAP
+```r
+shiny::runApp("path/to/MedicagoXeniumSpatialViewer")
+```
 
-- Select a `Color By` option such as cluster, organ, or DPI.
-- View interactive UMAP colored by the selected metadata.
+Upload `xenium_obj.rds` with the **Upload Xenium Seurat RDS** button.
 
-## 🧬 Gene Expression
+## ✅ 1. QC Metrics
 
-- Enter a gene name in the "Gene Expression Viewer" box.
-- See the gene expression on both UMAP and spatial maps.
+Check the distribution of genes (`nFeature_*`) and transcripts (`nCount_*`) per cell. Turn on the log scale for skewed distributions.
 
-## 🖼️ Spatial View
+## 🧭 2. UMAP + Clustering
 
-- Overlay expression or metadata grouping directly on tissue image coordinates.
+Click **Run Clustering** to run SCTransform, PCA (30 PCs), UMAP and graph-based clustering (resolution 0.3). A progress bar shows each step. If the object already has a UMAP, it is shown right away.
 
-## 💾 Export
+## 🗺️ 3. Spatial Clustering
 
-- Plots can be right-clicked and saved as images.
-- Table exports and interactive filters coming soon.
+See where each cluster sits on the tissue section.
+
+## 🧬 4. Gene Expression
+
+Pick a gene in the sidebar to plot its expression on the tissue. Type to search the gene list.
+
+## 📋 5. Marker Genes
+
+Click **Find Marker Genes** to find positive markers for every cluster. Filter the table by column and click **Download CSV** to save the results.
 
 ## 📧 Contact
 
-Questions? Contact [myj23@cam.ac.uk](mailto:myj23@cam.ac.uk)
-
----
-
-Happy Spatial Mapping 🧠
+Questions? Open an issue on [GitHub](https://github.com/MinYaoJhu/MedicagoXeniumSpatialViewer/issues) or email [MJhu@danforthcenter.org](mailto:MJhu@danforthcenter.org).

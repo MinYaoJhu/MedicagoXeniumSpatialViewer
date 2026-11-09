@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "MedicagoXeniumSpatialViewer: an interactive Shiny app for Xenium spatial transcriptomics"
+type: software
+authors:
+  - family-names: Jhu
+    given-names: Min-Yao
+    affiliation: Donald Danforth Plant Science Center
+repository-code: "https://github.com/MinYaoJhu/MedicagoXeniumSpatialViewer"
+license: MIT
+keywords:
+  - spatial transcriptomics
+  - Xenium
+  - Seurat
+  - Shiny
+  - Medicago truncatula

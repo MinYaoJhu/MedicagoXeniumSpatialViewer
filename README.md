@@ -1,85 +1,99 @@
-# 🧬 XeniumSpatialViewer (Shiny App)
+# 🧬 Medicago Xenium Spatial Viewer
 
-**Interactive R Shiny App for Exploring Spatial Transcriptomics from Xenium in situ**
+**An interactive R Shiny app for exploring 10x Genomics Xenium *in situ* spatial transcriptomics data**
 
-`XeniumSpatialViewer` enables dynamic, web-based visualization of spatial gene expression across tissue sections using processed Seurat `.rds` objects from Xenium datasets. It complements your analysis workflow by providing an accessible interface to explore clusters, spatial localization, and gene expression interactively.
+![R](https://img.shields.io/badge/R-%E2%89%A54.3-276DC3?logo=r&logoColor=white)
+![Seurat](https://img.shields.io/badge/Seurat-v5-blue)
+![Shiny](https://img.shields.io/badge/Shiny-app-blue?logo=rstudioide&logoColor=white)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+`MedicagoXeniumSpatialViewer` lets you upload a Xenium Seurat object (`.rds`) and explore it in the browser: check cell quality, cluster cells, view clusters and gene expression on the tissue, and export marker genes. No R coding is needed after launch. It was built to explore *Medicago truncatula* root nodule Xenium data, and it works with any Xenium dataset loaded into Seurat.
 
 ## Features
 
-- **Load Preprocessed Seurat Objects**  
-  Load preprocessed Xenium `Seurat` objects (`.rds`)
-  QC visualization (UMI & gene count per cell)
-
-- **UMAP & Cluster Explorer**  
-  View UMAPs with cluster IDs, organ types, developmental stages, etc.
-
-- **Tissue Spatial Viewer**  
-  Overlay clusters or gene expression directly on the tissue image.
-
-- **Gene Expression Viewer**  
-  Input a gene and visualize its expression on UMAP and tissue coordinates.
-
-- **Marker gene identification**  
-  Marker gene identification and export.
-
-- **Export & Snapshot**  
-  Download plots as high-res PNG or PDF. Save gene expression tables.
+| Tab | What it does |
+|---|---|
+| **QC Metrics** | Violin plots of genes and transcripts per cell (`nFeature_*`, `nCount_*`), with adjustable point size and log scale |
+| **UMAP + Clustering** | One-click SCTransform → PCA → UMAP → graph-based clustering, with a progress bar |
+| **Spatial Clustering** | Clusters mapped onto the tissue section coordinates |
+| **Gene Expression** | Expression of any selected gene plotted on the tissue |
+| **Marker Genes** | Marker genes for every cluster (`FindAllMarkers`), in a filterable table with CSV export |
 
 ## 📂 Repository Structure
 
 ```
-XeniumSpatialViewer/
-├── app.R                            # Main Shiny app launcher
-├── modules/                         # Modularized UI and server logic
-│   ├── ui_main.R
-│   ├── server_main.R
+MedicagoXeniumSpatialViewer/
+├── app.R                          # App launcher
+├── modules/                       # Shiny modules (one per tab)
+│   ├── ui_main.R                  # Page layout
+│   ├── server_main.R              # Data loading and module wiring
+│   ├── module_qc.R
 │   ├── module_umap.R
 │   ├── module_spatial.R
-│   └── module_gene_expression.R
-├── README.md
-├── vignette.Rmd
-├── LICENSE
-└── .gitignore
+│   ├── module_gene_expression.R
+│   └── module_markers.R
+├── vignette.Rmd                   # Step-by-step tutorial
+├── CITATION.cff
+└── LICENSE
 ```
 
 ## Getting Started
 
-### 1️⃣ Install Required Packages
+### 1️⃣ Install required packages
 
 ```r
-install.packages(c("shiny", "shinyWidgets", "ggplot2", "plotly", "DT", "patchwork"))
-BiocManager::install("Seurat")
+install.packages(c("shiny", "Seurat", "ggplot2", "DT"))
 ```
 
-### 2️⃣ Launch the App
+R ≥ 4.3 and Seurat v5 are recommended. SCTransform runs faster with the optional `glmGamPoi` package:
 
 ```r
-library(shiny)
-runApp("path/to/XeniumSpatialViewer")
+BiocManager::install("glmGamPoi")
 ```
 
-Or from within the repo folder:
+### 2️⃣ Launch the app
 
 ```r
-shiny::runApp()
+shiny::runApp("path/to/MedicagoXeniumSpatialViewer")
 ```
 
-## Example Usage
+### 3️⃣ Prepare your input
 
-Load your `.rds` Seurat object and:
-- Explore clusters on UMAP
-- Visualize marker genes on tissue
-- Compare expression by condition (e.g. ecotype, DPI)
-- Export plots for publication
+The app expects a Seurat object saved with `saveRDS()` that contains:
+
+- an assay of Xenium counts (for example, created with `Seurat::LoadXenium()`)
+- a spatial field of view (FOV), needed for the tissue plots
+- optionally, existing `umap` and `seurat_clusters`; otherwise compute them in the **UMAP + Clustering** tab
+
+```r
+xenium_obj <- Seurat::LoadXenium("path/to/xenium_output_folder", fov = "fov")
+saveRDS(xenium_obj, "xenium_obj.rds")
+```
+
+Uploads up to 5 GB are supported.
+
+## 🗺️ Roadmap
+
+- [ ] Demo dataset (a subset of a public 10x Genomics Xenium dataset) for a 30-second test run
+- [ ] Interactive UMAP (plotly) and "color by" any metadata column
+- [ ] Gene expression on UMAP alongside the tissue view
+- [ ] PNG/PDF export of all plots
+- [ ] Reproducible environment (`renv`) and automated tests
+
+## Related Repositories
+
+- [Medicago_Rhizobia_Xenium_Analysis_Workflow](https://github.com/MinYaoJhu/Medicago_Rhizobia_Xenium_Analysis_Workflow): the full analysis pipeline for the Medicago Xenium study
+- [Medicago_Xenium_relabeling_resegmentation](https://github.com/MinYaoJhu/Medicago_Xenium_relabeling_resegmentation): transcript relabeling and cell segmentation
+- [Xenium_data_analysis_training](https://github.com/MinYaoJhu/Xenium_data_analysis_training): a 4-week training course on Xenium data analysis
 
 ## Citation
 
-If you use `XeniumSpatialViewer` in your research, please cite:
+If you use this app in your research, please cite it with the **"Cite this repository"** button on GitHub (generated from [`CITATION.cff`](CITATION.cff)), or as:
 
-> Min-Yao, _XeniumSpatialViewer: Interactive Spatial Transcriptomics_, 2026. GitHub repository: [github.com/MinYaoJhu/XeniumSpatialViewer](https://github.com/yourname/XeniumSpatialViewer)
+> Jhu, M.-Y. *MedicagoXeniumSpatialViewer: an interactive Shiny app for Xenium spatial transcriptomics.* GitHub repository, https://github.com/MinYaoJhu/MedicagoXeniumSpatialViewer
 
 ## 📧 Contact
 
-Maintainer: **Min-Yao Jhu**  
-Email: [myj23@cam.ac.uk](mailto:myj23@cam.ac.uk)
-
+Maintainer: **Min-Yao Jhu**, Donald Danforth Plant Science Center
+Email: [MJhu@danforthcenter.org](mailto:MJhu@danforthcenter.org)
+Questions and bug reports are welcome as [GitHub Issues](https://github.com/MinYaoJhu/MedicagoXeniumSpatialViewer/issues).
