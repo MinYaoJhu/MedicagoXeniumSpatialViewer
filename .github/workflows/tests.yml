@@ -1,0 +1,34 @@
+# Run the test suite on every push and pull request.
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: bash -el {0}  # activates the micromamba environment
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up R environment (environment.yml)
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: environment.yml
+          cache-environment: true
+
+      - name: Install shinytest2 from CRAN
+        run: Rscript -e 'install.packages("shinytest2", repos = "https://cloud.r-project.org")'
+
+      - name: Show package versions
+        run: Rscript -e 'for (p in c("Seurat", "SeuratObject", "shiny", "DT", "testthat", "shinytest2")) cat(p, as.character(packageVersion(p)), "\n")'
+
+      - name: Run tests
+        run: Rscript tests/testthat.R
