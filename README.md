@@ -155,7 +155,10 @@ The app was tested with the versions below (Linux, November 2026). If something 
 
 ## Citation
 
-**Demo data:** Janesick, A., Shelansky, R., et al. High resolution mapping of the tumor microenvironment using integrated single-cell, spatial and in situ analysis. *Nature Communications* 14, 8353 (2023). https://doi.org/10.1038/s41467-023-43458-x. Data from 10x Genomics, licensed under CC BY 4.0.
+**Demo data** (CC BY 4.0, cited following the [10x Genomics citation guidelines](https://www.10xgenomics.com/support/software/cell-ranger/latest/miscellaneous/cr-citations)):
+
+- FFPE Human Breast using the Entire Sample Area, Xenium In Situ Dataset by Xenium Onboard Analysis v1.0.1, 10x Genomics, (RELEASE_DATE).
+- Janesick, A. et al. (2023). High resolution mapping of the tumor microenvironment using integrated single-cell, spatial and in situ analysis. *Nature Communications* 14: 8353, [doi:10.1038/s41467-023-43458-x](https://doi.org/10.1038/s41467-023-43458-x)
 
 **This app:**
 

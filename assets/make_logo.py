@@ -147,8 +147,8 @@ add(f'<circle cx="{LX}" cy="{LY}" r="{LR}" fill="none" stroke="{EDGE}" stroke-wi
 
 # Name
 font = 'font-family="Helvetica, Arial, sans-serif"'
-add(f'<text x="0" y="45" text-anchor="middle" {font} font-size="11" font-weight="bold" fill="{TEXT}">Xenium</text>')
-add(f'<text x="0" y="55" text-anchor="middle" {font} font-size="6.8" letter-spacing="0.3" fill="{EDGE}">spatial viewer</text>')
+add(f'<text x="0" y="45" text-anchor="middle" {font} font-size="11" font-weight="bold" fill="{TEXT}">Spatial</text>')
+add(f'<text x="0" y="55" text-anchor="middle" {font} font-size="7.5" letter-spacing="1.2" fill="{EDGE}">VIEWER</text>')
 
 scale = 1.8
 half_w, half_h = 62.35 * scale + 4, 72 * scale + 4

@@ -28,11 +28,14 @@ transcript locations are not included.
   (`Xenium_FFPE_Human_Breast_Cancer_Rep1`), Xenium Onboard Analysis output v1.0.1,
   10x Genomics.
   Dataset page: <https://www.10xgenomics.com/datasets/ffpe-human-breast-using-the-entire-sample-area-1-standard>
-- **License:** Creative Commons Attribution 4.0 International (CC BY 4.0), as stated by 10x Genomics for its public Xenium datasets.
-- **Original article:** Janesick, A., Shelansky, R., et al.
-  High resolution mapping of the tumor microenvironment using integrated
-  single-cell, spatial and in situ analysis. *Nature Communications* 14, 8353 (2023).
-  <https://doi.org/10.1038/s41467-023-43458-x>
+- **License:** Creative Commons Attribution 4.0 International (CC BY 4.0), as stated on the dataset page.
+
+## How to cite
+
+Following the [10x Genomics citation guidelines](https://www.10xgenomics.com/support/software/cell-ranger/latest/miscellaneous/cr-citations):
+
+- **Dataset:** FFPE Human Breast using the Entire Sample Area, Xenium In Situ Dataset by Xenium Onboard Analysis v1.0.1, 10x Genomics, (RELEASE_DATE).
+- **Article:** Janesick, A. et al. (2023). High resolution mapping of the tumor microenvironment using integrated single-cell, spatial and in situ analysis. *Nature Communications* 14: 8353, [doi:10.1038/s41467-023-43458-x](https://doi.org/10.1038/s41467-023-43458-x)
 
 ## Download record
 
