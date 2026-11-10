@@ -178,6 +178,10 @@ If you use this app in your research, please cite it with the **"Cite this repos
 
 > Jhu, M.-Y. (2026). *MedicagoXeniumSpatialViewer: an interactive Shiny app for Xenium spatial transcriptomics* (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.24093378
 
+## AI assistance
+
+Code refactoring, tests, documentation and figures in this repository were developed with the assistance of Claude Opus 5.5 (Anthropic), used through Claude Code. All changes were directed, reviewed and approved by the author, who takes full responsibility for the content.
+
 ## 📧 Contact
 
 Maintainer: **Min-Yao Jhu**, Donald Danforth Plant Science Center
